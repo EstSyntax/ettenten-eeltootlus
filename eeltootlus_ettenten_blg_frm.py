@@ -97,7 +97,7 @@ class Processor(object):
         """ faili töötlemine, sisendiks failiteed """
         filename = os.path.basename(file_path)
         output_path = os.path.join(output_dir_path, filename)
-        output_path = "%s_eel%s" % os.path.splitext(output_path)
+        # output_path = "%s_eel%s" % os.path.splitext(output_path)
         if file_path == output_path:
             print("Skipping file %s, it would be overwritten" % file_path)
             return

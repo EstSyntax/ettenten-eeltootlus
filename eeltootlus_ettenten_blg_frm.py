@@ -109,10 +109,7 @@ class Processor(object):
             kirjavahemargi_eemaldus = re.sub('(<\|\+/> )|(<\+\|/> )|(<\+/> )', '', yhele_reale)
             dok_eraldamine = re.sub('</doc>', '</doc>\n', kirjavahemargi_eemaldus)
             loigu_eraldamine = re.sub(' <p', '\n<p', dok_eraldamine)
-            temp_buffer = StringIO()
-            temp_buffer.write(loigu_eraldamine)
-            temp_buffer.seek(0)
-            self.process(temp_buffer, fod)
+            self.process(StringIO(loigu_eraldamine), fod)
             # self.process(fid, fod)
 
     @staticmethod

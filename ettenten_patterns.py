@@ -602,68 +602,6 @@ PATT_99_3 = re.compile(r'''
 ''', re.X)
 PATT_99_3_REPLACE = r'\1'
 
-# --------------------------------------------------------
-# EMOTIKONID
-#  :\ ;/
-#  :[
-# ://?
-# :] :@
-PATT_EMOT1 = re.compile(r'''
-    ((?<!http)\s)([:;][\[/\]@o]+)(\s)
-''', re.X)
-PATT_EMOT1_REPLACE = r'\1<emotikon=\2/>\3'
-
-# = ) :- ) ;o ) :o )
-PATT_EMOT2 = re.compile(r'''
-    (\s)(=|:-|[;:]o)(\s)(\)(\s\))*)(\s)
-''', re.X)
-PATT_EMOT2_REPLACE = r'\1<emotikon=\2\4/>\6'
-
-# :-[ ;-[ :'(
-# :-*
-# :-o :-9
-PATT_EMOT3 = re.compile(r'''
-    (\s)([:;][-']+[(\[/*o9]+)(\s)
-''', re.X)
-PATT_EMOT3_REPLACE = r'\1<emotikon=\2/>\3'
-
-# : D ; D
-PATT_EMOT4 = re.compile(r'''
-    (\s)([:;])\s(D)(\s)
-''', re.X)
-PATT_EMOT4_REPLACE = r'\1<emotikon=\2\3/>\4'
-
-# :-[Ss]
-# :[Ss] :S:S:S
-# :-[pP]
-# :[Pp]
-# ;[pP]
-#  hukka :S </s>
-PATT_EMOT5 = re.compile(r'''
-    (\s)(:-?[Ss]|:S:S:S|[:;]-?[pP])(\s)
-''', re.X)
-PATT_EMOT5_REPLACE = r'\1<emotikon=\2/>\3'
-
-# :K või :L
-PATT_EMOT6 = re.compile(r'''
-    (:[KL])(\s)
-''', re.X)
-PATT_EMOT6_REPLACE = r'<emotikon=\1/>\2'
-
-# ( { ) ( A ) ( Y ) ( L )
-PATT_EMOT7 = re.compile(r'''
-    (\()\s([{AYL])\s(\))
-''', re.X)
-PATT_EMOT7_REPLACE = r'<emotikon=\1\2\3/>'
-
-# '<emotikon=[^/]+)/> (\) )+'
-PATT_EMOT8 = re.compile(r'''
-    (<emotikon=[^/]+)(\))(/>\s)((\)\s)+)
-''', re.X)
-PATT_EMOT8_REPLACE = r'\1\4\2\3'
-
-# --------------------------------------------------------------------------------
-
 # lausepiirid ('\w\+\.\.\+[A-ZÕÜÖÄ]\+[^ ]\+')
 PATT_lausepiir = re.compile(r'''
     (\w+)(\.\.+)([A-ZÕÜÖÄ]+[^ ]+)
@@ -840,16 +778,8 @@ PATTERNS = (
     (PATT_www2, PATT_www2_REPLACE),
     (PATT_http, PATT_http_REPLACE),
     (PATT_www3, PATT_www3_REPLACE),
-    (PATT_EMOT2, PATT_EMOT2_REPLACE),
-    (PATT_EMOT1, PATT_EMOT1_REPLACE),
-    (PATT_EMOT3, PATT_EMOT3_REPLACE),
-    (PATT_EMOT4, PATT_EMOT4_REPLACE),
-    (PATT_EMOT5, PATT_EMOT5_REPLACE),
-    (PATT_EMOT6, PATT_EMOT6_REPLACE),
-    (PATT_EMOT8, PATT_EMOT8_REPLACE),
-    (PATT_EMOT7, PATT_EMOT7_REPLACE),
     (PATT_tyhjad_loigud, PATT_tyhjad_loigud_REPLACE),
     (PATT_tyhjad_laused, PATT_tyhjad_laused_REPLACE),
     (PATT_tyhjad_loigud_1, PATT_tyhjad_loigud_1_REPLACE),
-    (PATT_reavahetus, PATT_reavahetus_REPLACE),
+    (PATT_reavahetus, PATT_reavahetus_REPLACE)
 )

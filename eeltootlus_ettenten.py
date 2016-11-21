@@ -2,27 +2,28 @@
 # coding: utf8
 
 """
-Eeltöötlusmoodul etTenTeni korpuse blogi ja foorumi tekstitüübi jaoks.
+Eeltöötlusmoodul etTenTeni korpuse perioodika, valitsuse, religiooni,
+informatiivse ja tundmatu tekstitüübi jaoks.
 
 Programmi käivitamiseks:
 
 Ühe kindla faili töötlemiseks:
-python3 eeltootlus_ettenten_blg_frm.py --file sisendkausta_path/fail --output-dir väljundkausta_path
+python3 eeltootlus_ettenten.py --file sisendkausta_path/fail --output-dir väljundkausta_path
 
 Ühe kindla faili töötlemiseks (lausete loendamisega):
-python3 eeltootlus_ettenten_blg_frm.py --file sisendkausta_path/fail --output-dir väljundkausta_path --count-sentences
+python3 eeltootlus_ettenten.py --file sisendkausta_path/fail --output-dir väljundkausta_path --count-sentences
 
 Terve kausta töötlemine:
-python3 eeltootlus_ettenten_blg_frm.py --directory sisendkausta_path --output-dir väljundkausta_path
+python3 eeltootlus_ettenten.py --directory sisendkausta_path --output-dir väljundkausta_path
 
 Terve kausta töötlemine (lausete loendamisega):
-python3 eeltootlus_ettenten_blg_frm.py --directory sisendkausta_path --output-dir väljundkausta_path --count-sentences
+python3 eeltootlus_ettenten.py --directory sisendkausta_path --output-dir väljundkausta_path --count-sentences
 
 Skriptis kasutamiseks:
-cat sisendkausta_path/fail | python3 eeltootlus_ettenten_blg_frm.py > uus_fail
+cat sisendkausta_path/fail | python3 eeltootlus_ettenten.py > uus_fail
 
 Skriptis kasutamiseks (lausete loendamisega):
-cat sisendkausta_path/fail | python3 eeltootlus_ettenten_blg_frm.py --count-sentences > uus_fail
+cat sisendkausta_path/fail | python3 eeltootlus_ettenten.py --count-sentences > uus_fail
 
 """
 
@@ -35,7 +36,7 @@ import re
 import sys
 from io import StringIO
 
-import ettenten_patterns_blg_frm
+import ettenten_patterns
 
 
 
@@ -73,14 +74,11 @@ class Processor(object):
         """ teostab rea töötlemise """
         # asendame kõik etteantud mustri vasted, kui mustrile üldse vaste leidub
         if not re.findall('<doc', line):
-            for regexp, replace in ettenten_patterns_blg_frm.PATTERNS:
+            for regexp, replace in ettenten_patterns.PATTERNS:
                 if callable(regexp):
                     line = regexp(line)
                 elif regexp.findall(line):
                     line = regexp.sub(replace, line)
-                    if re.findall(r'<emotikon=[^\s]+(\s\))+/>', line):
-                        line = re.sub(r'\)\s\)', '))', line)
-                        line = re.sub(r'\)\s\)', '))', line)
         return self._count_sentences(line)
 
     def process(self, fid=None, fod=None):

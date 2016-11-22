@@ -100,6 +100,8 @@ class Processor(object):
             print("Skipping file %s, it would be overwritten" % file_path)
             return
         else:
+            if not os.path.exists(output_dir_path):
+                os.makedirs(output_dir_path)
             print("Processing file %s to %s" % (file_path, output_path))
         with open(file_path) as fid, open(output_path, 'w') as fod:
             data = fid.read()
@@ -124,7 +126,7 @@ class Processor(object):
         # kui väljundkausta ei eksisteeri, siis tee see
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
-        # otsime sisendkaustast üles kõik xml-laiendiga failid
+        # otsime sisendkaustast üles kõik url- või ela-laiendiga failid
         urls = [os.path.join(input_dir, f) for f in os.listdir(input_dir) if
                 f.endswith('.ela') or f.endswith('.url')]
         Pool().map(process, urls)  # funktsiooni process rakendatakse kõikidele failidele eraldi lõimedena

@@ -107,7 +107,8 @@ class Processor(object):
             data = fid.read()
             yhele_reale = re.sub('\n', ' ', data)
             kirjavahemargi_eemaldus = re.sub('(<\|\+/> )|(<\+\|/> )|(<\+/> )', '', yhele_reale)
-            dok_eraldamine = re.sub('</doc>', '</doc>\n', kirjavahemargi_eemaldus)
+            dokide_eraldamine = re.sub(r'(</doc>)\s(<doc)', r'\1\n\2', kirjavahemargi_eemaldus)
+            dok_eraldamine = re.sub('</doc>', '</doc>\n', dokide_eraldamine)
             loigu_eraldamine = re.sub(' <p', '\n<p', dok_eraldamine)
             self.process(StringIO(loigu_eraldamine), fod)
             # self.process(fid, fod)
@@ -127,7 +128,7 @@ class Processor(object):
             os.makedirs(output_dir)
         # otsime sisendkaustast üles kõik xml-laiendiga failid
         urls = [os.path.join(input_dir, f) for f in os.listdir(input_dir) if
-                f.endswith('.url')]
+                f.endswith('.url') or f.endswith('.ela')]
         Pool().map(process, urls)  # funktsiooni process rakendatakse kõikidele failidele eraldi lõimedena
 
 
